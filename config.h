@@ -1,6 +1,12 @@
 #ifndef _H_CONFIG
 #define _H_CONFIG
 
+/*TOP_FILE is the links that appear in thew top bar when viewing the repo, default: "README", "LICENSE"*/
+#define TOP_FILE \
+    {\
+        "README",\
+        "LICENSE",\
+    }
 /* DATE_FORMAT_LONG is used for printing the date, default: "%Y-%m-%dT%H:%M:%SZ" */
 #define DATE_FORMAT_LONG ("%Y-%m-%dT%H:%M:%SZ")
 /* DATE_FORMAT_LONG_SIZE is the max size of DATE_FORMAT_LONG */
