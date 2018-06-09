@@ -14,6 +14,7 @@
 #include <git2.h>
 
 #include "compat.h"
+#include "config.h"
 
 struct deltainfo {
 	git_patch *patch;
@@ -279,12 +280,12 @@ printtimez(FILE *fp, const git_time *intime)
 {
 	struct tm *intm;
 	time_t t;
-	char out[32];
+	char out[DATE_FORMAT_LONG_SIZE];
 
 	t = (time_t)intime->time;
 	if (!(intm = gmtime(&t)))
 		return;
-	strftime(out, sizeof(out), "%Y-%m-%dT%H:%M:%SZ", intm);
+	strftime(out, sizeof(out), DATE_FORMAT_LONG, intm);
 	fputs(out, fp);
 }
 
@@ -293,12 +294,12 @@ printtime(FILE *fp, const git_time *intime)
 {
 	struct tm *intm;
 	time_t t;
-	char out[32];
+	char out[TIME_FORMAT_SIZE];
 
 	t = (time_t)intime->time + (intime->offset * 60);
 	if (!(intm = gmtime(&t)))
 		return;
-	strftime(out, sizeof(out), "%a, %e %b %Y %H:%M:%S", intm);
+	strftime(out, sizeof(out), TIME_FORMAT, intm);
 	if (intime->offset < 0)
 		fprintf(fp, "%s -%02d%02d", out,
 		            -(intime->offset) / 60, -(intime->offset) % 60);
@@ -312,12 +313,12 @@ printtimeshort(FILE *fp, const git_time *intime)
 {
 	struct tm *intm;
 	time_t t;
-	char out[32];
+	char out[DATE_FORMAT_SHORT_SIZE];
 
 	t = (time_t)intime->time;
 	if (!(intm = gmtime(&t)))
 		return;
-	strftime(out, sizeof(out), "%Y-%m-%d %H:%M", intm);
+	strftime(out, sizeof(out), DATE_FORMAT_SHORT, intm);
 	fputs(out, fp);
 }
 

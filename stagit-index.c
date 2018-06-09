@@ -12,6 +12,7 @@
 #include <git2.h>
 
 #include "compat.h"
+#include "config.h"
 
 static git_repository *repo;
 
@@ -56,12 +57,12 @@ printtimeshort(FILE *fp, const git_time *intime)
 {
 	struct tm *intm;
 	time_t t;
-	char out[32];
+	char out[DATE_FORMAT_SHORT_SIZE];
 
 	t = (time_t)intime->time;
 	if (!(intm = gmtime(&t)))
 		return;
-	strftime(out, sizeof(out), "%Y-%m-%d %H:%M", intm);
+	strftime(out, sizeof(out), DATE_FORMAT_SHORT, intm);
 	fputs(out, fp);
 }
 
